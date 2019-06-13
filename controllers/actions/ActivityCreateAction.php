@@ -39,6 +39,7 @@ class ActivityCreateAction extends Action
             }
         }
         //$url = $model -> getLink();
+        
 
         return $this->controller->render('create', ['model'=>$model]);
     }
