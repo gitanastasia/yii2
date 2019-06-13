@@ -5,7 +5,7 @@ namespace app\controllers;
 
 
 use app\base\BaseWebController;
-use app\controllers\actions\ActivityDayAction;
+use app\controllers\actions\DayCreateAction;
 
 class DayController extends BaseWebController
 {
@@ -13,7 +13,7 @@ class DayController extends BaseWebController
     public function actions()
     {
         return [
-            'day'=>['class'=>ActivityDayAction::class]
+            'create'=>['class'=>DayCreateAction::class]
         ];
     }
 }

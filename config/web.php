@@ -17,6 +17,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x19X7oB2-P_vRNIcWsh4R21BsaBh5IuS',
         ],
+        'activity' => ['class' =>\app\components\ActivityComponent::class,
+            'modelClass' => 'app\models\Activity'],
+        'day' => ['class' =>\app\components\DayComponent::class,
+            'modelClass' => '\app\models\Day'],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

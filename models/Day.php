@@ -16,12 +16,13 @@ class Day extends Model
 
     public $weekend;
 
-    public $authorId;
+    public $userId;
 
     public function rules()
     {
         return [
-            ['title','integer'],
+            ['title','date','format' => 'php:Y-m-d'],
+            ['description','string'],
             ['working','boolean'],
             ['weekend','boolean']
         ];
@@ -32,7 +33,7 @@ class Day extends Model
     {
         return [
             'title'=> 'Дата',
-            'description' => 'Описание',
+            'description' => 'План на день',
             'working' => 'Рабочий день',
             'weekend' => 'Выходной'
 
