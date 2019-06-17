@@ -19,7 +19,7 @@ use yii\bootstrap\ActiveForm; ?>
         <?=$form->field($model,'weekend')->checkbox();?>
 
         <div class="form-group">
-           <a href="<?'url' => ['/activity/create']?>">Редактировать событие</a>
+            <a href="<?['label' => 'Activity', 'url' => ['/activity/view']]?>">Редактировать событие</a>
         </div>
 
         <?php ActiveForm::end(); ?>
