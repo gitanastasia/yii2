@@ -35,9 +35,9 @@ class ActivityComponent extends Component
     }
 
     private function genPathToSaveFile($file_name):string {
-        FileHelper::createDirectory(\Yii::getAlias('@webroot'.DIRECTORY_SEPARATOR.'images'));
-        $path=\Yii::getAlias('@webroot'.DIRECTORY_SEPARATOR.'images'.
-            DIRECTORY_SEPARATOR.$file_name);
+        FileHelper::createDirectory(\Yii::getAlias('@webroot').DIRECTORY_SEPARATOR.'images');
+        $path=\Yii::getAlias('@webroot').DIRECTORY_SEPARATOR.'images'.
+            DIRECTORY_SEPARATOR.$file_name;
         return $path;
     }
 

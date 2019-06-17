@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm; ?>
 
         <?=$form->field($model,'useNotification')->checkbox();?>
         <?=$form->field($model,'email',['enableAjaxValidation'=>true,
-            'enableClientValidation'=>false])?>,
+            'enableClientValidation'=>false])?>
 
         <!--<?=$form->field($model,'emailRepeat')?>-->
 

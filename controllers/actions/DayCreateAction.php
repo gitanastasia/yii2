@@ -22,10 +22,13 @@ class DayCreateAction extends Action
             $model->load(\Yii::$app->request->post());
 
             if($comp->createDay($model)) {
-                echo 'OK';
-                exit;
+                //echo 'OK';
+                //exit;
+
+                return $this->controller->render('view',['model'=>$model]);
             }
         }
+
 
         return $this->controller->render('create', ['model'=>$model]);
     }

@@ -50,7 +50,7 @@ class Activity extends Model
     public function rules()
     {
         return [
-            ['title','string','min'=> 3, 'max' => 30],
+            ['title','string','min'=> 3, 'max' => 255],
             ['title','trim'], //убирает пробелы
             [['title','startDate'], 'required' ],
             //['title','match','pattern' => '/[a-zA-Z]{5,}/','message' => 'Заголовок должен состоять только из
