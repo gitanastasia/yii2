@@ -17,6 +17,3 @@ class DayController extends BaseWebController
         ];
     }
 }
-{
-
-}

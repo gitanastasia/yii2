@@ -18,7 +18,7 @@ class DayComponent extends Component
 
     }
 
-   public function createDay(Day &$model) {
+   public function createDay(Day &$model):bool{
        if($model->validate()){
            return true;
        }
