@@ -12,6 +12,17 @@ class m190616_090253_insertsBAse extends Migration
      */
     public function safeUp()
     {
+        $this->insert('users',[
+            'id'=>6,
+            'email'=>'admin@test.ru',
+            'password_hash'=>Yii::$app->security->generatePasswordHash('123456'),
+
+        ]);
+        $this->insert('users',[
+            'id'=>7,
+            'email'=>'user@test.ru',
+            'password_hash'=>Yii::$app->security->generatePasswordHash('123456'),
+        ]);
 
         $this->batchInsert('activity',['title',
             'startDate','isBlocked','user_id'],[

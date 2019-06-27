@@ -47,6 +47,7 @@ class Users extends UsersBase implements IdentityInterface
                 ['email','exist','on'=>self::SCENARIO_SIGNIN],
                 ['password','string','min'=>6]
 
+
             ]
             ,parent::rules());
     }
@@ -66,7 +67,7 @@ class Users extends UsersBase implements IdentityInterface
     public static function findIdentity($id)
     {
         // найти пользователя по id - модель
-        return Users::find()->andWhere(['id'=>$id])->one();
+        return Users::find()->cache(10)->andWhere(['id'=>$id])->one();
     }
 
     /**

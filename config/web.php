@@ -29,6 +29,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        //Для работы с RBAC
         'rbac' => ['class' => \app\components\RbacComponent::class],
         'user' => [
             'identityClass' => 'app\models\Users',
@@ -57,7 +58,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => true, //Включение ЧПУ
             'showScriptName' => false,
             'rules' => [
             ],

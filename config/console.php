@@ -16,9 +16,26 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        //Для работы с RBAC
         'authManager' => [
             'class' => '\yii\rbac\DbManager'
         ],
+        //Для работы с уведомлениями
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+           //ничего не надо вкладывать в файл
+            'useFileTransport' => false,
+            'transport' => [
+                'class'=>'Swift_SmtpTransport',
+                'host' =>'smtp.yandex.ru',
+                'username' => 'geekbrains@onedeveloper.ru',
+                'password'=> '112358njkz_',
+                'port' => '587',
+                'encryption' => 'tls'
+            ]
+        ],
+        'activity' => ['class' =>\app\components\ActivityComponent::class,
+            'modelClass' => '\app\models\Activity'],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

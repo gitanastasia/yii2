@@ -5,11 +5,12 @@
 ?>
 
 <div class="row">
-    <div class="col-md-6">
-        <pre>
-            <?=print_r($users);?>
-        </pre>
-    </div>
+//кешируем блок
+    <?php if ($this->beginCache('page', ['duration'=>10])): ?>
+    <?=\app\widgets\dao\DaoWidget::widget(['users' => $users]);?>
+    <?php $this->endCache();?>
+    <?php endif;?>
+
     <div class="col-md-6">
         <pre>
             <?=print_r($activityUser);?>

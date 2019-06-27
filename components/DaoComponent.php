@@ -5,6 +5,8 @@ namespace app\components;
 
 
 use yii\base\Component;
+use yii\caching\DbDependency;
+use yii\caching\TagDependency;
 use yii\db\Connection;
 use yii\db\Exception;
 use yii\db\Query;
@@ -24,16 +26,23 @@ class DaoComponent extends Component
         $sql='select * from activity where user_id=:user';
 
         return $this->connection->createCommand($sql,[':user'=>$user_id])
+            // использовать при сложном или часто повторяющемся запросе - в условии кеша записывается еще один запрос
+            ->cache(10,new DbDependency(['sql' => 'select max(id)
+            from activity where user_id='.(int)$user_id]))
             ->queryAll();
 
     }
 
     public function getFirstActivityBlocked(){
         $query=new Query();
+        //сбрасываем кеш по тегу
+       //TagDependency::invalidate(\Yii::$app->cache,'tag1');
         return $query->select(['id','title'])
             ->from('activity')
             ->andWhere(['isBlocked'=>1])
             ->orderBy(['title'=>SORT_DESC])
+            //к запросам привязываем тег; весь кеш, помеченный этим тегом - сбрасывается
+            ->cache(10,new TagDependency(['tags' => 'tag1']))
             ->one($this->connection);
     }
 
@@ -45,7 +54,7 @@ class DaoComponent extends Component
             ->createCommand()->rawSql; //возвращает строку запроса sql - SELECT count(id) as cnt FROM `activity`
 //            ->scalar($this->connection); //возвращает скалярное значение первого столбца первой строки результата.
     }
-
+//здесь кеш не сработает, т.к. работает reader - забирает данные одного запроса маленькими порциями
     public function getBigData(){
         $query=new Query();
         return $query->select(['id','title'])
@@ -86,6 +95,8 @@ class DaoComponent extends Component
     public function getUsersAll(){
         $sql='SELECT * from users;';
         return $this->connection->createCommand($sql)
+            //по времени 10 сек находится в кеш
+            ->cache(10)
             ->queryAll();
     }
 

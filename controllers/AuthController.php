@@ -20,6 +20,7 @@ class AuthController extends Controller
 
     }
 
+
        //регистрация
      public function actionSignUp(){
 
@@ -53,7 +54,8 @@ class AuthController extends Controller
     /*  public function actions()
      {
          return [
-             'singup'=>['class'=>SignUpAction::class]
+             'singup'=>['class'=>SignUpAction::class],
+             'singin'=>['class'=>SignInAction::class]
 
          ];
      }*/

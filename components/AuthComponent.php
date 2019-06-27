@@ -57,6 +57,8 @@ class AuthComponent extends Component
 
         //сохранение в бд после проведениея валидации
        if(!$model->save()){
+
+           $this->rbac->addToUserRole();
            return false;
        }
        return true;
