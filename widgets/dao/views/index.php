@@ -1,5 +1,6 @@
 <?php
-
+//подключение asset
+\app\widgets\dao\assets\DaoAsset::register($this)
 ?>
 
  <div class="col-md-6">

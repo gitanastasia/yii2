@@ -81,7 +81,7 @@ class Users extends UsersBase implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        // TODO: Implement findIdentityByAccessToken() method.
+        return Users::find()->andWhere(['auth_token'=>$token])->one();
     }
 
     /**
@@ -126,5 +126,10 @@ class Users extends UsersBase implements IdentityInterface
     public function validateAuthKey($authKey)
     {
        return $this->auth_key==$authKey;
+    }
+// поля для вывода в rest-api
+    public function fields()
+    {
+        return ['email'];
     }
 }
