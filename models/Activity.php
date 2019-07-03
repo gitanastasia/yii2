@@ -4,16 +4,28 @@
 namespace app\models;
 
 
+use app\behaviors\GetDateCreatedBehavior;
+use app\behaviors\ShowLogBehavior;
 use app\models\validations\StopPhraseValidation;
 use yii\base\Model;
 
 class Activity extends ActivityBase
 {
+    public function behaviors()
+   {
+       return [
+          ['class'=>GetDateCreatedBehavior::class,
+                'attribute_name' => 'create_at'],
+           GetDateCreatedBehavior::class,
+           ShowLogBehavior::class
+       ];
+   }
+
     public $repeatType;
 
     public const REPEAT_TYPE=['0'=>'','1d'=>'Каждый день','1w'=>'Каждую неделю'];
 
-  //  public $img;
+    public $img;
 
     public  $emailRepeat;
 
@@ -77,6 +89,27 @@ class Activity extends ActivityBase
 
         ];
 
+    }
+// вывод полей в rest-api
+    public function fields()
+    {
+        return [
+            'id',
+            'title',
+            'description',
+            //вывод email пользователя
+//            'user_email'=>function($model){
+//                return $model->user->email;
+//            },
+//           'user'
+        ];
+    }
+    //вывод доп полей по необходимости
+    public function extraFields()
+    {
+        return [
+            'user'
+        ];
     }
 
 }
