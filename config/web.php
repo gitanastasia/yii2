@@ -16,8 +16,14 @@ $config = [
     ],
     'components' => [
         'request' => [
+            'parsers' => [
+                'application/json'=>'yii\web\JsonParser'
+            ],
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x19X7oB2-P_vRNIcWsh4R21BsaBh5IuS',
+        ],
+        'formatter' => [
+            'dateFormat' => 'php:d.m.Y'
         ],
         'authManager' => [
             'class' => '\yii\rbac\DbManager'
@@ -29,6 +35,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        //Для работы с RBAC
         'rbac' => ['class' => \app\components\RbacComponent::class],
         'user' => [
             'identityClass' => 'app\models\Users',
@@ -57,9 +64,19 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => true, //Включение ЧПУ
             'showScriptName' => false,
             'rules' => [
+                'activity/new'=>'activity/create', //в url выведет /activity/new
+                'new'=>'activity/create', //в url выведет /new
+                'day'=>'day/create', //в url выведет /day
+                'events/<action>'=>'activity/<action>', //выведет /events/create
+                'events/view/<id:\d+>'=>'activity/view', // выведет /events/view/10
+                //(\d+ -только цифра/\w+ -буквы)
+                ['class'=>\yii\rest\UrlRule::class,
+                    'controller' => 'activity-rest',
+                    //отключает преобразователь в множественное число
+                    'pluralize' => false]
             ],
         ],
 

@@ -16,15 +16,19 @@ class ActivityCreateAction extends Action
     /**
      * @return array|string
      * @throws \yii\base\InvalidConfigException
+     * @throws HttpException
      */
-  public function run() {
-      if(!\Yii::$app->rbac->canCreateActivity()){
-          throw new HttpException(403,'Not allowed');
-      }
 
+  public function run() {
+
+     if (!\Yii::$app->rbac->canCreateActivity()){
+         return $this->controller->redirect('/auth/sign-up');
+       //throw new HttpException(403,'Not allowed');
+
+     }
         /** @var ActivityComponent  $comp */
         $comp = \Yii::createObject(['class' => ActivityComponent::class,
-            'modelClass' => 'app\models\Activity']);
+            'modelClass' => '\app\models\Activity']);
 
         $model=$comp->getModel();
 
@@ -39,7 +43,8 @@ class ActivityCreateAction extends Action
             if($comp->createActivity($model)){
                 //echo 'OK';
                 //exit;
-                return $this->controller->render('view',['model'=>$model]);
+                //return $this->controller->render('view',['model'=>$model]);
+                return $this->controller->redirect(['/activity/view', 'id'=>$model->id]);
             }
         }
         //$url = $model -> getLink();

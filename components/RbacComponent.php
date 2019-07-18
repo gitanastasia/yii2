@@ -4,7 +4,8 @@
 namespace app\components;
 
 
-use function Sodium\add;
+
+use app\rules\OwnerActivityRule;
 use yii\base\Component;
 use yii\rbac\ManagerInterface;
 
@@ -30,7 +31,7 @@ class RbacComponent extends Component
         $authManager->add($user);
 
         //создаем permissions
-        $createActivity=$authManager->createPermission('create');
+        $createActivity=$authManager->createPermission('createActivity');
         $createActivity->description='Создание события';
 
         $authManager->add($createActivity);
@@ -38,6 +39,12 @@ class RbacComponent extends Component
         $viewEditOwnerActivity=$authManager->createPermission('viewEditOwnerActivity');
         $viewEditOwnerActivity->description="Просмотр и редактирование события";
 
+        //приклепляем павило OwnerActivityRule
+        $rule=new OwnerActivityRule();
+        //добавляем экземпляр класса в бд
+        $authManager->add($rule);
+
+        $viewEditOwnerActivity->ruleName=$rule->name;
         $authManager->add($viewEditOwnerActivity);
 
         $allPrivilege= $authManager->createPermission('allPrivilege');
@@ -60,8 +67,25 @@ class RbacComponent extends Component
         $authManager->assign($user,2);
     }
 
+    public function addToUserRole($user_id){
+        $role=$this->getAuthManager()->getRole('user');
+        $this->getAuthManager()->assign($role,$user_id);
+    }
+
+// присвоение прав на  coздание события
     public function canCreateActivity():bool{
         return \Yii::$app->user->can('createActivity');
+    }
+
+    public function canViewOrEditActivity($activity):bool{
+
+        if(\Yii::$app->user->can('allPrivilege')){
+            return true;
+        }
+        return \Yii::$app->user->can('viewEditOwnerActivity',[
+            'activity'=>$activity
+        ]);
+
     }
 
 }

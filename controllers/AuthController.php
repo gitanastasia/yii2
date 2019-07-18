@@ -20,6 +20,7 @@ class AuthController extends Controller
 
     }
 
+
        //регистрация
      public function actionSignUp(){
 
@@ -27,7 +28,7 @@ class AuthController extends Controller
 
          if(\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post())){
              if($this->getAuthComp()->signUp($model)){
-                 return $this->redirect(['/auth/sign-in']);
+                 return $this->redirect(['/activity/create']);
              }
 
          }
@@ -53,7 +54,8 @@ class AuthController extends Controller
     /*  public function actions()
      {
          return [
-             'singup'=>['class'=>SignUpAction::class]
+             'singup'=>['class'=>SignUpAction::class],
+             'singin'=>['class'=>SignInAction::class]
 
          ];
      }*/
