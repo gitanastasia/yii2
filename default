@@ -17,11 +17,11 @@ server {
 	listen 80 default_server;
  listen [::]:80 default_server;
 
-access_log  /data/mysite.local/log/access.log;
-    error_log   /data/mysite.local/log/error.log;
+access_log  /data/bb.local/log/access.log;
+    error_log   /data/bb.local/log/error.log;
 
 
-root /data/mysite.local/app/web;
+root /data/bb.local/bb/web;
 
 # Add index.php to the list if you are using PHP
 index index.php;
