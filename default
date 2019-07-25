@@ -21,7 +21,7 @@ access_log  /data/bb.local/log/access.log;
     error_log   /data/bb.local/log/error.log;
 
 
-root /data/bb.local/bb/web;
+root /data/bb.local/app/web;
 
 # Add index.php to the list if you are using PHP
 index index.php;
